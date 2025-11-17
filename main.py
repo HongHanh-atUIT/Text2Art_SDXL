@@ -13,10 +13,10 @@ from dataclasses import dataclass, asdict
 # Configuration
 # ============================================
 class Config:
-    FINAL = "/root/Project/static/sources/Model" # not done yet
+    FINAL = "/root/Project/static/sources/Model"
     BASE_MODEL_ID = "stabilityai/stable-diffusion-xl-base-1.0"      
     REFINER_MODEL_ID = "stabilityai/stable-diffusion-xl-refiner-1.0"
-    IMAGE_SIZE = 880       
+    IMAGE_SIZE = 1024
     SESSIONS_FILE = "/root/Project/sessions.json"
     STATIC_DIR = "/root/Project/static"
     GENERATED_DIR = os.path.join(STATIC_DIR, "generated")
