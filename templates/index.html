@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H&C Text2Art</title>
+
+  <!-- Tailwind + Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Cấu hình màu PMS 2715 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "pms-2715": "#7A80E0",
+            "pms-2715-dark": "#5A60C8",
+            "pms-2715-light": "#A1A6EB"
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body class="h-screen w-screen bg-gradient-to-br from-pms-2715-light via-white to-pms-2715 flex overflow-hidden transition-colors duration-500">
+
+  <!-- Sidebar -->
+  <div id="sidebar-container" class="h-full">
+    <div id="sidebar" class="w-64 bg-white/70 backdrop-blur-md border-r border-pms-2715-light p-4 flex flex-col h-full">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-bold text-pms-2715-dark">H&C Text2Art</h1>
+        <button id="closeSidebar" class="text-pms-2715 hover:text-pms-2715-dark text-lg font-bold">✖</button>
+      </div>
+
+      <button id="btn-new-chat" class="w-full bg-pms-2715 hover:bg-pms-2715-dark text-white py-2 rounded-xl mb-4 font-medium shadow-sm transition">
+        + New chat
+      </button>
+
+      <h2 class="text-gray-600 font-semibold mb-2">Chatting history</h2>
+      <ul id="chatList" class="space-y-2 text-sm flex-1 overflow-y-auto"></ul>
+
+      <!-- Dịch nút hướng dẫn xuống -->
+      <div class="mt-6">
+        <button id="instructBtn"
+          class="w-full bg-pms-2715-light hover:bg-pms-2715 text-pms-2715-dark hover:text-white py-2 rounded-xl font-medium shadow-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="lightbulb" class="w-5 h-5"></i>
+          How to use
+        </button>
+      </div>
+
+      <footer class="pt-4 text-center text-xs text-gray-500 border-t border-pms-2715-light mt-4">
+        ChauNKB & HanhPTH
+      </footer>
+    </div>
+  </div>
+
+  <!-- Main Chat -->
+  <div id="main-chat-container" class="flex-1 flex flex-col relative">
+    <div class="flex justify-between items-center p-4 border-b border-pms-2715-light bg-white/60 backdrop-blur-md">
+      <div class="flex items-center gap-2">
+        <button id="openSidebar" class="text-pms-2715-dark font-bold hidden text-xl">☰</button>
+        <i data-lucide="bot" class="w-6 h-6 text-pms-2715 animate-bounce-slow"></i>
+        <h2 class="text-lg font-semibold text-pms-2715-dark">Text to Art AI Assistant</h2>
+      </div>
+
+      <!-- Nút chuyển chế độ -->
+      <div class="flex items-center justify-end">
+        <label class="relative inline-flex items-center cursor-pointer select-none">
+          <input type="checkbox" id="toggleTheme" class="sr-only">
+          <div class="w-16 h-8 bg-gray-300 rounded-full relative transition-colors duration-500 flex items-center justify-between px-2">
+            <i data-lucide="sun" class="w-4 h-4 text-yellow-500"></i>
+            <i data-lucide="moon" class="w-4 h-4 text-gray-600"></i>
+            <div id="toggleCircle" class="absolute top-1 left-1 w-6 h-6 bg-white/30 backdrop-blur-sm border-2 border-white rounded-full shadow-md transition-all duration-500"></div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Chat box -->
+    <div id="chatBox" class="flex-1 overflow-y-auto p-6 space-y-4 pb-32">
+      <div class="self-start bg-white/80 border border-pms-2715-light rounded-2xl p-3 max-w-lg shadow-sm">
+        👋 Hello! I am H&C, your AI assistant. Please enter your art image description that you want me to generate!
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex justify-center w-full px-4">
+      <form id="chatForm"
+        class="flex items-center gap-3 bg-white/80 backdrop-blur-md border border-pms-2715-light rounded-full shadow-lg px-4 py-2">
+        <input id="userInput" type="text" placeholder="Enter your art image description..." autocomplete="off"
+          class="flex-1 bg-transparent focus:outline-none text-gray-700 px-2">
+        <button type="submit"
+          class="bg-pms-2715 text-white p-3 rounded-full hover:bg-pms-2715-dark transition flex items-center justify-center">
+          <i data-lucide="send" class="w-5 h-5"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Instruction Popup -->
+  <div id="instructionPopup"
+    class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+
+    <div class="relative w-[95%] max-w-2xl rounded-2xl p-6 shadow-xl 
+                bg-gradient-to-br from-pms-2715-light to-pms-2715 text-white overflow-hidden">
+
+      <!-- Close Button -->
+      <button id="closeInstruction"
+        class="absolute top-3 right-3 text-white hover:text-gray-200 text-xl">
+        ✖
+      </button>
+
+      <!-- Title -->
+      <h2 class="text-2xl font-bold mb-4 text-center">
+        How to use
+      </h2>
+
+      <!-- Slide container -->
+      <div class="overflow-hidden relative h-[420px] rounded-xl flex items-center justify-center bg-black/10">
+        <div id="instructionSlider" class="flex transition-transform duration-500 h-full">
+          <img src="/static/sources/Ins1.png" class="w-full h-full object-contain p-2">
+          <img src="/static/sources/Ins1.png" class="w-full h-full object-contain p-2">
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex justify-between mt-5">
+        <button id="prevInstruction"
+          class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">
+          ◀ Previous
+        </button>
+
+        <button id="nextInstruction"
+          class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">
+          Next ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

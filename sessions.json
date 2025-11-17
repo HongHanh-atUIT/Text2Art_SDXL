@@ -1,0 +1,41 @@
+{
+  "61625410": {
+    "title": "A beautiful village in the sun...",
+    "messages": [
+      {
+        "id": "c727c3f0",
+        "sender": "user",
+        "text": "A beautiful village in the sunset, follow the impressionism style"
+      },
+      {
+        "id": "38cb87f7",
+        "sender": "bot",
+        "image_url": "/static/generated/53254a5d.png",
+        "text": "Ảnh được sinh từ prompt:\nA beautiful village in the sunset, follow the impressionism style",
+        "status": "positive"
+      },
+      {
+        "id": "5280c82d",
+        "sender": "bot",
+        "text": "💥 Bùm!!! Ảnh đã hoàn tất, bạn còn cần H&C giúp gì nữa không?"
+      },
+      {
+        "id": "36df81cb",
+        "sender": "user",
+        "text": "I want to see a little duck on the river in that village"
+      },
+      {
+        "id": "0689c21d",
+        "sender": "bot",
+        "image_url": "/static/generated/c5bcaf6e.png",
+        "text": "Ảnh được sinh từ prompt:\nA beautiful village in the sunset, follow the impressionism style. I want to see a little duck on the river in that village",
+        "status": "positive"
+      },
+      {
+        "id": "bdea4093",
+        "sender": "bot",
+        "text": "💥 Bùm!!! Ảnh đã hoàn tất, bạn còn cần H&C giúp gì nữa không?"
+      }
+    ]
+  }
+}
